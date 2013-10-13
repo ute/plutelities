@@ -1,5 +1,5 @@
 #'@name plottools-package
-#'@aliases plottools-package, plottools
+#'@aliases plottools-package plottools
 #'@docType package
 #'@title Plotting with Style
 #'@description 

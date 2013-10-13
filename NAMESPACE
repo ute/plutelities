@@ -1,3 +1,5 @@
+export(is.style)
+export(style)
 export(updateJoin)
 export(updateList)
 export(updateMissing)

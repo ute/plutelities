@@ -1,4 +1,5 @@
 # on a grey autumn sunday... 13.10.2013
+
 #'@title Update lists of parameters
 #'@rdname updatelists
 #'@name Functions for updating parameter lists
@@ -33,8 +34,9 @@ NA
 #'@export
 #'@family updatelist
 #'@examples
-#'A  <- list(a = NULL,       b = "b from A", c = "c from A")
-#'B  <- list(a = "a from B", b = "b from B", c =  NULL, d = "d from B", e = NULL)
+#'A <- list(a = NULL, b = "b from A", c = "c from A", d = "d from A")
+#'B <- list(a = "a from B", b = "b from B", c =  NULL, 
+#'          e = "e from B", f = NULL)
 #'
 #'str(updateList(A, B))
 #'# sequence does not matter:
