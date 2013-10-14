@@ -3,7 +3,7 @@
 #'@title Construct a Style List
 #'@description Construct an object of class \code{style}, a list with unique names.
 #'@param ... objects, should be named if not style objects.
-#'@param .rmNULL if \code{TRUE}, arguments of value \code{NULL} are ignored. 
+#'@param NULL.rm if \code{TRUE}, arguments of value \code{NULL} are ignored. 
 #'  Default: \code{FALSE}.
 #'@return an object of class \code{style}, a list with uniquely named elements.
 #'@details Tagged arguments have priority from right to left, that is, if 
@@ -24,9 +24,9 @@
 #'B <- style(a = 2, A, b = NULL, c = list(x = 4, y = 5))
 #'str(B)
 #'str(style(A, B))
-#'str(style(A, B, .rmNULL = TRUE))
+#'str(style(A, B, NULL.rm = TRUE))
 
-style <- function(..., .rmNULL = FALSE){
+style <- function(..., NULL.rm = FALSE){
   dotargs <- list(...)
   # resolve styles in dotargs
   result <- list()
@@ -36,7 +36,7 @@ style <- function(..., .rmNULL = FALSE){
     result <- c(result, if (is.style(elem)) elem else dotargs[i])
   }  
   # remove NULLs
-  if (.rmNULL) result <- result[!sapply(result, is.null)]
+  if (NULL.rm) result <- result[!sapply(result, is.null)]
   # remove duplicates from right to left
   result <- result[!duplicated(names(result), fromLast = TRUE)]
   class(result) <- c("style", class(result))

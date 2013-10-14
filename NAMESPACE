@@ -1,4 +1,7 @@
+export(.graphparams)
+export(.plotparams)
 export(is.style)
+export(matching)
 export(style)
 export(updateJoin)
 export(updateList)
