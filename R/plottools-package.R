@@ -25,7 +25,7 @@
 #' \tabular{ll}{
 #'  \code{\link{alphacol}} \tab control transparency / brightness of a colour
 #'  \cr\code{\link{matching}} \tab match a list of parameters by name,
-#'  \cr\tab useful forsorting out parameters that throw warnings \cr\tab when used in plot methods.
+#'  \cr\tab useful for sorting out parameters that throw warnings \cr\tab when used in plot methods.
 #'  } 
 #'@author Ute Hahn, \email{ute@@imf.au.dk}
 # @examples
