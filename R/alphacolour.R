@@ -27,6 +27,7 @@
 
 alphacol <- function(col, alpha = 1){
   # add alpha to a colour
+  if (is.null(alpha)) alpha <- 1
   if (.plotoptions$alphamixing) return(rgb(t(col2rgb(col)/255), alpha=alpha))
   bg.RGB <- col2rgb(par("bg"))
   RGB <- pmin((alpha * col2rgb(col) + (1 - alpha) * bg.RGB) / 255, 1) 

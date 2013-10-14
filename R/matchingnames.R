@@ -1,9 +1,11 @@
 #'@title Find matching parameters by name
 
-#'@description Finds elements in a list whose names matche some given arguments
+#'@description Finds elements in a list whose names match some given arguments
 #'@param x named list, input elements
 #'@param ... named lists, functions or function names \code{x} is to be matched against, 
 #' see the details
+#'@param .notmatching if \code{TRUE}, the opposite is done: return all elements 
+#'whose names do not match the given arguments.
 #'@return a list containing those elements of \code{x} whose names match the 
 #'arguments, see details.
 #'@details For functions or functions names contained in \code{...}, the argument
@@ -20,7 +22,7 @@
 #'# using predefined lists for graphical parameters, and plot.default parameters
 #'str(matching(A, .graphparams, .plotparams))
         
-matching <- function(x, ...)
+matching <- function(x, ..., .notmatching = FALSE)
 {
   stopifnot(is.list(x))
   if (length(x) < 1) return(list())
@@ -42,7 +44,9 @@ matching <- function(x, ...)
                   if (!nameless[i]) rawnames[i]
                   else {if (isfun[i]) names(formals(argi))})
   } 
-  x[names(x) %in% allnames]
+  matches <- names(x) %in% allnames
+  if (.notmatching) matches <- ! matches
+  x[matches]
 }
 
 

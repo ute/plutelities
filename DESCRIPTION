@@ -1,8 +1,8 @@
 Package: plottools
 Type: Package
 Title: Tools for plotting with style 
-Version: 0.1.9
-Date: 2013-10-14
+Version: 0.2.0
+Date: 2013-10-15
 Author: Ute Hahn
 Maintainer: Ute Hahn <ute@imf.au.dk>
 Description: Provides utilities for handling plot and graphic parameters, 
