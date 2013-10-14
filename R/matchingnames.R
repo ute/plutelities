@@ -16,6 +16,9 @@
 #'str(matching(A, B))
 #'str(matching(A, "plot.default"))
 #'str(matching(A, plot.default, B))
+#'
+#'# using predefined lists for graphical parameters, and plot.default parameters
+#'str(matching(A, .graphparams, .plotparams))
         
 matching <- function(x, ...)
 {
@@ -23,6 +26,7 @@ matching <- function(x, ...)
   if (length(x) < 1) return(list())
   dotargs <- as.list(c(..., "", recursive = FALSE)) 
     # the "" forces something reasonable if only one element is in ...
+  # removing the "" again:
   dotargs <- dotargs[-length(dotargs)]
   allnames <- character(0)
   rawnames <- names(dotargs)
@@ -42,28 +46,3 @@ matching <- function(x, ...)
 }
 
 
-#'@title Predefined objects 
-#'@rdname plottools-predefined
-#'@name Predefined parameter lists
-#'@description Predefined lists of parameters, for convenience
-#'@details 
-#'\tabular{ll}{ 
-#' \code{.plotparams} \tab parameters that may cause warnings in low level plotting
-#' \cr\tab functions, but not in \code{\link{plot.default}}
-#' \cr\code{.graphparams} \tab graphical parameters that can be set by \code{\link{par}},
-#' \cr\tab no risk when passed to low level plotting functions.
-#'}
-#'@format named lists
-NA
-
-#'@rdname plottools-predefined
-#'@export
-.plotparams <- list(type = "p",  xlim = NULL, ylim = NULL,
-                    log = "", main = NULL, sub = NULL, xlab = NULL, ylab = NULL,
-                    ann = par("ann"), axes = TRUE, frame.plot = TRUE,
-                    panel.first = NULL, panel.last = NULL, asp = NA,
-                    mgp = par("mgp"))
-
-#'@rdname plottools-predefined
-#'@export
-.graphparams <- par(no.readonly = TRUE)
