@@ -30,6 +30,7 @@ style <- function(..., NULL.rm = FALSE){
   dotargs <- list(...)
   # resolve styles in dotargs
   result <- list()
+  if (length(dotargs) < 1) return(result)
   for (i in 1: length(dotargs))
   {
     elem <- dotargs[[i]]
