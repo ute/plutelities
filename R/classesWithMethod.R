@@ -3,12 +3,13 @@
 #'@param fooGeneric a generic function, or a character string naming 
 #'a generic function.
 #'@return A character vector with the names of classes for which
-#' \code{generic.function} is implemented
+#' \code{generic.function} is implemented.
 #'@export
 #'@author Ute Hahn,  \email{ute@@imf.au.dk}
 #'@examples
-#'classesWithMethod(plot)
-#'classesWithMethod(strangeStuff)
+#'classesWithMethod("plot")
+#'classesWithMethod(summary)
+#'classesWithMethod("strangeStuff")
 classesWithMethod <- function(fooGeneric) {    
   if (!is.character(fooGeneric)) 
       fooGeneric <- deparse(substitute(fooGeneric))
