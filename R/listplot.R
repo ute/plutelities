@@ -5,10 +5,10 @@
 # of name tags.
 #@param arglist list, the list that is to be reassembled,
 #@param tagnames character, the names to be sortet after.
-#@return a list of lists with names c(sortnames, "..."). 
-#@details The input \code{arglist} is a list of lists or simple elements. Any lists contained in 
+#@return a list of lists with names c(sortnames, "...").
+#@details The input \code{arglist} is a list of lists or simple elements. Any lists contained in
 #arglist are searched for names contained in \code{tagnames}. If elements with appropriate
-# names are found, they constitute the new lists returned by the function. 
+# names are found, they constitute the new lists returned by the function.
 # Elements in arglist that are not lists are pooled in the "..." component of the
 # returned list.
 #
@@ -17,7 +17,7 @@
 # @author Ute Hahn,  \email{ute@@imf.au.dk}
 #@export
 #@examples
-#arglist <- list(x = "a", y = list(a = 1, b = 2), 
+#arglist <- list(x = "a", y = list(a = 1, b = 2),
 #                z = list(a = 3, b = 4, c = 5))
 #nametags <- c("a", "b", "d", "...")
 #newlist <- reorderList(arglist, nametags)
@@ -25,7 +25,7 @@
 ##unassigned elements
 #str(newlist$...)
 ## protecting list argument y
-#arglist.p <- list(x= "a", y = list(list(a = 1, b = 2)), 
+#arglist.p <- list(x= "a", y = list(list(a = 1, b = 2)),
 #                  z = list(a = 3, b = 4, c = 5))
 #newlist.p <- reorderList(arglist.p, nametags)
 #str(newlist.p$...)
@@ -45,37 +45,37 @@ retagList <- function (arglist, tagnames)
   result <- as.list(rep(list(list()), length(tagnames)))
   names(result) <- tagnames
   # provide space for the unnamed ones
-  result$... <- list() 
-  if (length(arglist) > 0) for(i in 1 : length(arglist))
+  result$... <- list()
+  for(i in seq_along(arglist))
   {
     arg <- arglist[[i]]
-    
+
     if (is.list(arg))
     {
       namesarg <- names(arg)
       if ((length(arg) == 1) && is.null(namesarg)) result[["..."]][[argnames[i]]] <- arg[[1]]
-      else{  
+      else{
       # sort its elements and distribute them to the rights slots in the result
       # use only known names
       slots <- match(names(arg), tagnames)
-      for (j in (1 : length(arg)))
+      for (j in seq_along(arg))
       {
         if (!is.na(slots[j])) result[[slots[j]]][[argnames[i]]]  <- arg[[j]]
       }
     }}
-    else 
+    else
       result[["..."]][[argnames[i]]] <- arg
   }
   return(result)
 }
 
 #'@title Plot objects in a list
-#'@description Plot all objects given in a list, with parameters that can be given as 
+#'@description Plot all objects given in a list, with parameters that can be given as
 #'a named list.
 #'@param objects named list of \code{R}-objects.
 #'@param allinone logical, if TRUE, all objects are plotted in one window.
-#'@param ... parameters and parameterlists passed to plot method of the objects. 
-#'@details 
+#'@param ... parameters and parameterlists passed to plot method of the objects.
+#'@details
 #'Only objects that belong to classes with a plot method are plotted.
 #'The plot parameters may be given as lists with the same name as the objects list.
 #' Parameters in named lists are assigned to the object with same name in
@@ -84,7 +84,7 @@ retagList <- function (arglist, tagnames)
 #'internally calles \code{\link{splot}}.
 #'
 #'Any \code{add}-parameters only affect the first plotted object. Whether or not
-#'the plots of the remaining objects are added to the first plot, is controlled 
+#'the plots of the remaining objects are added to the first plot, is controlled
 #'by parameter \code{allinone.}
 #'
 #'@export
@@ -93,10 +93,10 @@ retagList <- function (arglist, tagnames)
 #'curves <- list(b = cos, a = sin)
 #'lplot(curves, col = list(a = "green", b = "red"), ylim = c(-1, 1), to = pi)
 #'# start a new plot for every object
-#'lplot(curves, allinone = FALSE, col = list(a = "green", b = "red"), 
+#'lplot(curves, allinone = FALSE, col = list(a = "green", b = "red"),
 #'      ylim = c(-1, 1), to = pi)
-#'      
-#'# using plot styles      
+#'
+#'# using plot styles
 #'curves <- list(b = cos, a = sin)
 #'mystyles <- list(a = style(col = "red", lwd = 2), b = style(col = "green"))
 #'lplot(curves, mystyles, ylim = c(-1, 1), to = 2*pi)
@@ -106,29 +106,29 @@ retagList <- function (arglist, tagnames)
 lplot <- function (objects=NULL, ..., allinone = TRUE)
 {
   stopifnot(is.list(objects))
-  
+
   # check whether objects have plot methods
   plotmethods <- methods(plot)
   plottingclasses <- sapply(plotmethods, function(s) substr(s, 6, 200))
   canplot <- function(obj) any(class(obj) %in% plottingclasses)
   objects <- objects[sapply(objects, canplot)]
- 
+
   nobjects <- length(objects)
   if (nobjects == 0) stop("nothing to plot here")
   unnamed <- is.null(obnames <- names(objects))
-  
+
   dotargs <- list(...)
   if(is.null(names(dotargs))) names(dotargs) <- rep("", length(dotargs))
-  
+
   addfirst <- any(dotargs$add)
   #override add arguments: plot either all in one, or all separately
   dotargs$add <- NULL # plot all in one plot
-   
+
   orderedArgs <- retagList(dotargs, obnames)
-  do.call(splot, c(list(objects[[1]]), orderedArgs[[1]], 
+  do.call(splot, c(list(objects[[1]]), orderedArgs[[1]],
                   orderedArgs[["..."]], add = addfirst))
-  
+
   if (nobjects > 1) for (i in 2 : nobjects)
-     do.call(splot, c(list(objects[[i]]), orderedArgs[[i]], 
+     do.call(splot, c(list(objects[[i]]), orderedArgs[[i]],
        orderedArgs[["..."]], add = allinone))
 }

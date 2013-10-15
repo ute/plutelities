@@ -3,17 +3,17 @@
 #'@title Construct a Style List
 #'@description Construct an object of class \code{style}, a list with unique names.
 #'@param ... objects, should be named if not style objects.
-#'@param NULL.rm if \code{TRUE}, arguments of value \code{NULL} are ignored. 
+#'@param NULL.rm if \code{TRUE}, arguments of value \code{NULL} are ignored.
 #'  Default: \code{FALSE}.
 #'@return an object of class \code{style}, a list with uniquely named elements.
-#'@details Tagged arguments have priority from right to left, that is, if 
-#'arguments with the same name occur more than once, the value of the last one 
+#'@details Tagged arguments have priority from right to left, that is, if
+#'arguments with the same name occur more than once, the value of the last one
 #'is picked.
 #'
-#'Arguments of class \code{"style"} themselves are resolved before integrating 
+#'Arguments of class \code{"style"} themselves are resolved before integrating
 #'into the resulting unique list.
 #'
-#'The class name was chosen because the main purpose for \code{style}s is to 
+#'The class name was chosen because the main purpose for \code{style}s is to
 #'define plotting styles for the use with function \code{\link{splot}}.
 #'@seealso splot
 #'@export
@@ -31,11 +31,11 @@ style <- function(..., NULL.rm = FALSE){
   # resolve styles in dotargs
   result <- list()
   if (length(dotargs) < 1) return(result)
-  for (i in 1: length(dotargs))
+  for (i in seq_along(dotargs))
   {
     elem <- dotargs[[i]]
     result <- c(result, if (is.style(elem)) elem else dotargs[i])
-  }  
+  }
   # remove NULLs
   if (NULL.rm) result <- result[!sapply(result, is.null)]
   # remove duplicates from right to left

@@ -2,11 +2,11 @@
 
 #'@description Finds elements in a list whose names match some given arguments
 #'@param x named list, input elements
-#'@param ... named lists, functions or function names \code{x} is to be matched against, 
+#'@param ... named lists, functions or function names \code{x} is to be matched against,
 #' see the details
-#'@param .notmatching if \code{TRUE}, the opposite is done: return all elements 
+#'@param .notmatching if \code{TRUE}, the opposite is done: return all elements
 #'whose names do not match the given arguments.
-#'@return a list containing those elements of \code{x} whose names match the 
+#'@return a list containing those elements of \code{x} whose names match the
 #'arguments, see details.
 #'@details For functions or functions names contained in \code{...}, the argument
 #'list is matched. This works only for non primitive functions.
@@ -21,12 +21,12 @@
 #'
 #'# using predefined lists for graphical parameters, and plot.default parameters
 #'str(matching(A, .graphparams, .plotparams))
-        
+
 matching <- function(x, ..., .notmatching = FALSE)
 {
   stopifnot(is.list(x))
   if (length(x) < 1) return(list())
-  dotargs <- as.list(c(..., "", recursive = FALSE)) 
+  dotargs <- as.list(c(..., "", recursive = FALSE))
     # the "" forces something reasonable if only one element is in ...
   # removing the "" again:
   dotargs <- dotargs[-length(dotargs)]
@@ -35,18 +35,16 @@ matching <- function(x, ..., .notmatching = FALSE)
   if(is.null(rawnames)) rawnames <- rep("", length(dotargs))
   nameless <- sapply(rawnames, function(n) is.null(n) || (n==""))
   isfun <-  sapply(dotargs, function(x) is.function(x) || (
-    is.character(x) && (x !="") 
+    is.character(x) && (x !="")
     && exists(x) && is.function(get(x))))
-  for (i in 1:length(dotargs))
+  for (i in seq_along(dotargs))
   {
     argi <- dotargs[[i]]
-    allnames <- c(allnames, 
+    allnames <- c(allnames,
                   if (!nameless[i]) rawnames[i]
                   else {if (isfun[i]) names(formals(argi))})
-  } 
+  }
   matches <- names(x) %in% allnames
   if (.notmatching) matches <- ! matches
   x[matches]
 }
-
-
