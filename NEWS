@@ -1,4 +1,20 @@
-  CHANGES IN plottools VERSION 0.2.1  
+ CHANGES IN plottools VERSION 0.2.2-1
+
+    o new function firstclass
+
+    o alphacol takes par("col") as default colour
+
+    o updateList and family are based on styles instead of lists
+
+ CHANGES IN plottools VERSION 0.2.2  
+  
+    o new generic function summaryplot (just to have a few more... - needed for package fdnonpar)
+
+    o fixes in lplot for the use of styles (parlists) instead of lists
+
+    o matching returns style list	
+
+ CHANGES IN plottools VERSION 0.2.1  
   
     o new function classesWithMethod returns a list of all classes for which
       a given S3 method is implemented
