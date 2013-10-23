@@ -24,6 +24,10 @@
 #'splot(sin, timidly, boldly, col = "green")
 
 splot <- function(x, ..., NULL.rm = TRUE, .plotmethod = "plot") {
-  plotargs <- style(..., NULL.rm = NULL.rm)
-  do.call(.plotmethod, c(list(x), plotargs, recursive = F))
+  if (length(list(...)) == 0)
+    do.call(.plotmethod, list(x))
+  else{
+    plotargs <- style(..., NULL.rm = NULL.rm)
+    do.call(.plotmethod, c(list(x), plotargs, recursive = F))
+  }  
 }
