@@ -1,10 +1,20 @@
 # splot - stylist plot
 
-#'@title Generic function for plotting with styles
-#'@description Generic template function for use by other packages.
+#'@title Plot with styles: generic function
+#'@description Plot using predefined lists of plot parameters. 
+#'Generic template method for use by other packages.
 #'@param x the object that is to be plottet.
 #'@param ... parameters passed to class methods.
+#'@details Defining a \code{splot} method is 
+#'\itemize{
+#' \item essential for classes with \code{plot} methods that internally call \code{splot},
+#' since otherwise a call to \code{splot.default} risks to end up in a loop,
+#'\item recommended for classes with plot methods that use \code{\link{simplist}} to coerce
+#'the arguments.
+#'}
+#'In these cases, \code{splot} is virtually an alias for \code{plot}.
 #'@export
+#'@seealso \code{\link{splot.default}} for the default method, and examples.
 
 splot <- function(x, ...) UseMethod("splot")
 
