@@ -1,5 +1,14 @@
 # splot - stylist plot
 
+#'@title Generic function for plotting with styles
+#'@description Generic template function for use by other packages.
+#'@param x the object that is to be plottet.
+#'@param ... parameters passed to class methods.
+#'@export
+
+splot <- function(x, ...) UseMethod("splot")
+
+
 #'@title Plot with styles
 #'@description Plot using predefined parameter lists
 #'@param x an object that belongs to a class with \code{plot} method.
@@ -14,6 +23,8 @@
 #' ! Note: Don't use this function inside a plot method, or any other method that
 #' might be called with \code{splot} !
 #'@author Ute Hahn,  \email{ute@@imf.au.dk}
+#'@S3method splot default
+#'@method splot default
 #'@export
 #'@examples
 #'boldly <- simplist(col = "red", lwd = 5)
@@ -26,7 +37,7 @@
 #'splot(sin, boldly, timidly)
 #'splot(sin, timidly, boldly, col = "green")
 
-splot <- function(x, ..., .NULL.rm = TRUE, .plotmethod = "plot") {
+splot.default <- function(x, ..., .NULL.rm = TRUE, .plotmethod = "plot") {
   if (length(list(...)) == 0)
     do.call(.plotmethod, list(x))
   else{
