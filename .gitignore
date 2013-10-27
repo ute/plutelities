@@ -1,17 +1,14 @@
 # man pages are created by roxygenize
 man/*
-
 .Rproj.user
 .Rhistory
 .RData
-
 # Example code in package build process
 *-Ex.R
-
 # backups
 *.bak
-
 # RStudio and Winedt
 *.Rproj
 .Rbuildignore
 *.prj
+Rplots.pdf
