@@ -1,10 +1,4 @@
-CHANGES IN plutils VERSION 0.3.0-pre-alpha
-
-    o splot is a generic function now
-
-    o documentation updates
-
-CHANGES IN plutils VERSION 0.2.3
+ CHANGES IN plutils VERSION 0.2.3
   
     o package has been renamed!
  
