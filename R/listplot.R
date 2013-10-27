@@ -150,11 +150,11 @@ lplot <- function (objects=NULL, ..., allinone = TRUE, .plotmethod = "plot")
   if (("ppp" %in% class(objects[[1]])) && is.null(dotargs$main))
     orderedArgs[["..."]]$main <- ifelse(unnamed, "", obnames[1])
 
-  do.call(splot.default, c(list(objects[[1]]), orderedArgs[[obnames[1]]],
+  do.call(splot, c(list(objects[[1]]), orderedArgs[[obnames[1]]],
                   orderedArgs[["..."]], add = addfirst,
                    .plotmethod = .plotmethod, recursive=F))
 
   if (nobjects > 1) for (i in 2 : nobjects)
-     do.call(splot.default, c(list(objects[[i]]), orderedArgs[[i]],
+     do.call(splot, c(list(objects[[i]]), orderedArgs[[i]],
        orderedArgs[["..."]], add = allinone, .plotmethod = .plotmethod))
 }
