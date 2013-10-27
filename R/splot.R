@@ -6,17 +6,19 @@
 #'@param x the object that is to be plottet.
 #'@param ... parameters passed to class methods.
 #'@details Defining a \code{splot} method is 
-#'\itemize{
-#' \item essential for classes with \code{plot} methods that internally call \code{splot},
+#\itemize{
+# \item 
+#'essential for classes with \code{plot} methods that internally call \code{splot},
 #' since otherwise a call to \code{splot.default} risks to end up in a loop,
-#'\item recommended for classes with plot methods that use \code{\link{simplist}} to coerce
-#'the arguments.
-#'}
-#'In these cases, \code{splot} is virtually an alias for \code{plot}.
+#\item recommended for classes with plot methods that use \code{\link{simplist}} to coerce
+#the arguments.
+#}
+#In these cases, \code{splot} is virtually an alias for \code{plot}.
+#'In this case, \code{splot} is virtually an alias for \code{plot}.
 #'@export
 #'@seealso \code{\link{splot.default}} for the default method, and examples.
 
-splot <- function(x, ...) UseMethod("splot")
+splot <- function(x, ..., .NULL.rm = TRUE, .plotmethod = "plot") UseMethod("splot")
 
 
 #'@title Plot with styles
@@ -52,6 +54,6 @@ splot.default <- function(x, ..., .NULL.rm = TRUE, .plotmethod = "plot") {
     do.call(.plotmethod, list(x))
   else{
     plotargs <- simplist(..., .NULL.rm = .NULL.rm)
-    do.call(.plotmethod, c(list(x), plotargs, recursive = F))
+    do.call(.plotmethod, c(list(x), plotargs, recursive = FALSE))
   }
 }
